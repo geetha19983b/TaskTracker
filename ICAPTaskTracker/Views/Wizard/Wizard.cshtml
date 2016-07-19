@@ -1,0 +1,156 @@
+﻿@{
+    ViewBag.Title = "Wizard";
+}
+
+
+@*<link href="~/Content/css/common.css" rel="stylesheet" />*@
+<div ng-app="TaskApp" class="row">
+
+    <div ng-controller="TaskController" ng-init="init('All')">
+
+
+        <div class="panel panel-primary small">
+            <div class="panel-heading panel-info"><span class="glyphicon glyphicon-pencil"></span> Task Admin Dashboard </div>
+            <div class="panel-body">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-5 col-md-push-1">
+                                <div class="form-group form-inline form-group-sm">
+
+                                    <input type="search" class="form-control" placeholder="Search" ng-model="taskSearch">
+                                 
+                                    <button class="btn btn-sm btn-primary" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                                 
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <ul class="nav nav-pills small commnt-filter">
+                                    <li ng-class="{'active' : show == 'All' }" ng-click="show='All'"><a href="#">All</a></li>
+                                    <li ng-class="{'active' : show == 'Completed' }" ng-click="show='Completed'"><a href="#">Completed</a></li>
+                                    <li ng-class="{'active' : show == 'InProgress' }" ng-click="show='InProgress'"><a href="#">InProgress</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-8">
+                                <table class="table table-condensed table-striped">
+                                    <thead>
+                                        <tr class="alert-info">
+                                            <th style="display: none;">TaskID</th>
+                                            <th>TaskName</th>
+                                            <th>Status</th>
+                                            <th>Comments</th>
+                                            <th>Actions</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="items in model">
+                                            <td hidden="hidden">{{items.TaskId}}</td>
+                                            <td>{{items.TaskName}}</td>
+                                            <td>{{items.Status}}</td>
+                                            <td>{{items.Comments}}</td>
+                                            <td>
+                                                <button ng-model="$scope.Tasks"
+                                                        ng-click="edit(model[$index])">
+                                                    Edit
+                                                </button>
+                                                <button ng-click="delete($index)">Delete</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    </table>
+                                <br/>
+                                <div ng-show="Tasks.TaskId != 0 ">
+                                    <div class="panel panel-primary small">
+                                        <div class="panel-heading panel-info">
+                                            Update Task
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="form-group form-horizontal form-group-sm">
+                                                <div hidden="hidden">
+                                                    <label for="id">Id</label>
+                                                    <input type="text" class="form-control"  data-ng-model="Tasks.TaskId" />
+                                                </div>
+                                                <div>
+                                                    <label for="name">TaskName</label>
+                                                    <input type="text" class="form-control" data-ng-model="Tasks.TaskName" />
+                                                </div>
+
+                                                <div>
+                                                    <label for="status">Status</label>
+                                                    <input type="text" class="form-control"  data-ng-model="Tasks.Status" />
+                                                </div>
+
+                                                <div>
+                                                    <label for="comments">Comments</label>
+                                                    <input type="text" class="form-control"  data-ng-model="Tasks.Comments" />
+                                                </div>
+                                                <br />
+                                                <div>
+                                                    <button data-ng-click="update()" class="btn btn-sm btn-success">Update</button>
+                                                    <button data-ng-click="cancel()" class="btn btn-sm btn-warning">Cancel</button>
+                                                </div>
+                                            </div>
+                                            </div>
+                                    </div>
+                                 </div>
+
+                                <div ng-hide="Tasks.TaskId != 0 ">
+                                    <div class="panel panel-primary small">
+                                        <div class="panel-heading panel-info">
+                                            Add New Task
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="form-group form-horizontal form-group-sm">
+                                                <div hidden="hidden">
+                                                    <label for="id">Id</label>
+                                                    <input type="text" class="form-control" data-ng-model="Tasks.TaskId" />
+                                                </div>
+                                                <div>
+                                                    <label for="name" >TaskName</label>
+                                                    <input type="text" class="form-control" data-ng-model="Tasks.TaskName" />
+                                                </div>
+
+                                                <div>
+                                                    <label for="status" >Status</label>
+                                                    <input type="text" class="form-control" data-ng-model="Tasks.Status" />
+                                                </div>
+
+                                                <div>
+                                                    <label for="comments">Comments</label>
+                                                    <input type="text" class="form-control"  data-ng-model="Tasks.Comments" />
+                                                </div>
+                                                <br />
+                                                <br />
+                                                <div>
+                                                    <button data-ng-click="addtask()" class="btn btn-sm btn-success">Save</button>
+                                                    <button data-ng-click="clear()" class="btn btn-sm btn-warning">Clear</button>
+                                                </div>
+                                            </div>
+                                            </div>
+                                    </div>
+                                    </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+@section scripts{
+    <script src="~/userscripts/app.js"></script>
+    <script src="~/userscripts/TaskService.js"></script>
+    <script src="~/userscripts/directives/angular.editInPlace.js"></script>
+    <script src="~/userscripts/directives/angular.ngEnter.js"></script>
+}
