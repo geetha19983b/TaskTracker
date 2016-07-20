@@ -28,6 +28,7 @@
                             <div class="col-md-7">
                                 <ul class="nav nav-pills small commnt-filter">
                                     <li ng-class="{'active' : show == 'All' }" ng-click="show='All'"><a href="#">All</a></li>
+                                    <li ng-class="{'active' : show == 'New' }" ng-click="show='New'"><a href="#">New</a></li>
                                     <li ng-class="{'active' : show == 'Completed' }" ng-click="show='Completed'"><a href="#">Completed</a></li>
                                     <li ng-class="{'active' : show == 'InProgress' }" ng-click="show='InProgress'"><a href="#">InProgress</a></li>
                                 </ul>
@@ -36,34 +37,37 @@
 
                         <div class="row">
                             <div class="col-md-8">
-                                <table class="table table-condensed table-striped">
+                                <table class="table table-condensed table-striped table-bordered">
                                     <thead>
                                         <tr class="alert-info">
                                             <th style="display: none;">TaskID</th>
                                             <th>TaskName</th>
                                             <th>Status</th>
+                                            <th>Users</th>
                                             <th>Comments</th>
                                             <th>Actions</th>
 
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr ng-repeat="items in model">
+                                        <tr ng-repeat="items in model | filter:showFn  | filter :taskSearch ">
                                             <td hidden="hidden">{{items.TaskId}}</td>
                                             <td>{{items.TaskName}}</td>
                                             <td>{{items.Status}}</td>
+                                            <td>{{items.Users}}</td>
                                             <td>{{items.Comments}}</td>
                                             <td>
-                                                <button ng-model="$scope.Tasks"
-                                                        ng-click="edit(model[$index])">
+                                                <button ng-model="$scope.Tasks" class="btn btn-sm btn-success"
+                                                        ng-click=" edit(model[$index])">
                                                     Edit
                                                 </button>
-                                                <button ng-click="delete($index)">Delete</button>
+                                                <button class="btn btn-sm btn-warning" ng-click="delete($index)">Delete</button>
                                             </td>
                                         </tr>
                                     </tbody>
                                     </table>
-                                <br/>
+                                </div>
+                            <div class="col-md-4">
                                 <div ng-show="Tasks.TaskId != 0 ">
                                     <div class="panel panel-primary small">
                                         <div class="panel-heading panel-info">
@@ -84,7 +88,13 @@
                                                     <label for="status">Status</label>
                                                     <input type="text" class="form-control"  data-ng-model="Tasks.Status" />
                                                 </div>
-
+                                                <div>
+                                                    <label for="user">User</label>
+                                                    @*<input type="text" class="form-control" data-ng-model="Tasks.Status" />*@
+                                                    <select ng-model="Tasks.Users" class="form-control" ng-options="x for x in  TaskUsers ">
+                                                        <option value="">---Please select User---</option>
+                                                    </select>
+                                                </div>
                                                 <div>
                                                     <label for="comments">Comments</label>
                                                     <input type="text" class="form-control"  data-ng-model="Tasks.Comments" />
@@ -117,9 +127,16 @@
 
                                                 <div>
                                                     <label for="status" >Status</label>
-                                                    <input type="text" class="form-control" data-ng-model="Tasks.Status" />
+                                                    @*<input type="text" class="form-control" data-ng-model="Tasks.Status" />*@
+                                                    <select ng-model="Tasks.Status" class="form-control" ng-options="x for x in  TaskstatusValues "></select>
                                                 </div>
-
+                                                <div>
+                                                    <label for="user">User</label>
+                                                    @*<input type="text" class="form-control" data-ng-model="Tasks.Status" />*@
+                                                    <select ng-model="Tasks.Users" class="form-control" ng-options="x for x in  TaskUsers ">
+                                                        <option value="0">---Please select User---</option>
+                                                    </select>
+                                                </div>
                                                 <div>
                                                     <label for="comments">Comments</label>
                                                     <input type="text" class="form-control"  data-ng-model="Tasks.Comments" />
@@ -134,6 +151,7 @@
                                             </div>
                                     </div>
                                     </div>
+                                </div>
                             </div>
                         </div>
 

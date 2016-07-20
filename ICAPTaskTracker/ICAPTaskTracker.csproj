@@ -932,6 +932,10 @@
     <Compile Include="Migrations\201607190813063_InitialCreate.Designer.cs">
       <DependentUpon>201607190813063_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607200917534_UserAdd.cs" />
+    <Compile Include="Migrations\201607200917534_UserAdd.Designer.cs">
+      <DependentUpon>201607200917534_UserAdd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Task.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -973,6 +977,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201607190813063_InitialCreate.resx">
       <DependentUpon>201607190813063_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607200917534_UserAdd.resx">
+      <DependentUpon>201607200917534_UserAdd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

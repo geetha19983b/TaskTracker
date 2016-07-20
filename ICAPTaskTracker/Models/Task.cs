@@ -13,6 +13,7 @@ namespace ICAPTaskTracker.Models
          public string  TaskName { get; set; }
          public string Status { get; set; }
 
+         public string Users { get; set; }
          public string Comments { get; set; }
     }
 }

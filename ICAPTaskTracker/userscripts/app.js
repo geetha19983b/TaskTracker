@@ -16,8 +16,15 @@ TaskApp.controller('TaskController', function ($scope, TaskService, $anchorScrol
             TaskId: '',
             TaskName: '',
             Status: '',
+            Users:'',
             Comments: ''
         };
+        $scope.TaskstatusValues = ["New", "InProgress", "Completed"];
+
+        $scope.TaskUsers = ["Geetha", "Humridha", "Stephen", "Anitha", "Sivaram", "Subramani", "Devi", "Divya", "Durga"];
+        
+        $scope.Tasks.Status = $scope.TaskstatusValues[0];
+
     }
 
 
@@ -45,22 +52,42 @@ TaskApp.controller('TaskController', function ($scope, TaskService, $anchorScrol
 
             });
     }
-    $scope.Tasks = {
-        TaskId: 0,
-        TaskName: '',
-        Status: '',
-        Comments: ''
+    /* Filter Function for All | Incomplete | Complete */
+    $scope.showFn = function (task) {
+
+        if ($scope.show === "All") {
+            return true;
+        } else if (task.Status === "New" && $scope.show === "New") {
+            return true;
+        } else if (task.Status === "InProgress" && $scope.show === "InProgress") {
+            return true;
+        }
+        else if (task.Status === "Completed" && $scope.show === "Completed") {
+            return true;
+        }
+        else {
+            return false;
+        }
     };
+    //$scope.Tasks = {
+    //    TaskId: 0,
+    //    TaskName: '',
+    //     Status: '',
+    //    //Status:$scope.status[0],
+    //    Comments: ''
+    //};
     // Reset product details
     $scope.clear = function () {
         $scope.Tasks.TaskId =0;
         $scope.Tasks.TaskName = '';
         $scope.Tasks.Status = '';
+        $scope.Tasks.Status = 0;
+        $scope.Tasks.Users = 0;
         $scope.Tasks.Comments = '';
     }
     // Edit product details
     $scope.edit = function (data) {
-        $scope.Tasks = { TaskId: data.TaskId, TaskName: data.TaskName, Status: data.Status, Comments: data.Comments };
+        $scope.Tasks = { TaskId: data.TaskId, TaskName: data.TaskName, Status: data.Status, Comments: data.Comments,Users:data.Users };
     }
 
     // Cancel product details
@@ -76,7 +103,7 @@ TaskApp.controller('TaskController', function ($scope, TaskService, $anchorScrol
               //  $scope.model = response.data;
                 getTaskList("All");
                 $scope.clear();
-                alert("Product Updated Successfully !!!");
+                alert("Task Updated Successfully !!!");
             }, function errorCallback(response) {
                 alert("Error : " + response.data.ExceptionMessage);
             });

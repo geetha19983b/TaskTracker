@@ -26,7 +26,7 @@
 
     // Add Tasks
     this.addTasks = function (tasks) {
-       alert('in service add');
+      // alert('in service add');
         if (rootDir != "/") {
             strUrl = rootDir + '/api/Tasks';
         }
