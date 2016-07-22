@@ -6,7 +6,7 @@
        
         // alert('in service' + status);
         if (rootDir != "/") {
-            strUrl = rootDir + '/api/Tasks?status=' + status;
+            strUrl = rootDir + 'api/Tasks?status=' + status;
         }
         else {
             strUrl = '/api/Tasks?status=' + status;
@@ -28,7 +28,7 @@
     this.addTasks = function (tasks) {
       // alert('in service add');
         if (rootDir != "/") {
-            strUrl = rootDir + '/api/Tasks';
+            strUrl = rootDir + 'api/Tasks';
         }
         else {
             strUrl = '/api/Tasks';
